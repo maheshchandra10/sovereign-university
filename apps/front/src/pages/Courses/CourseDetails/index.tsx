@@ -75,7 +75,7 @@ export const CourseDetails: React.FC = () => {
                   alt=""
                 />
               </div>
-              <div className="grid w-full grid-rows-4 px-3 md:px-0 ">
+              <div className="grid w-full grid-rows-4 px-3 md:px-0">
                 <div className="flex flex-row items-center space-x-5">
                   <FaChalkboardTeacher size="30" className="text-orange-600" />
                   <span className="font-body w-full rounded bg-gray-200 px-3 py-1">
@@ -126,7 +126,7 @@ export const CourseDetails: React.FC = () => {
                   }}
                 ></ReactMarkdown>
               </div>
-              <div className="flex w-full flex-col ">
+              <div className="flex w-full flex-col">
                 <h4 className="mb-1 text-sm font-thin uppercase italic">
                   {t('courses.details.objectives')}
                 </h4>
@@ -136,7 +136,9 @@ export const CourseDetails: React.FC = () => {
                 <ul className="text-primary-700 space-y-2 font-thin uppercase">
                   {course.objectives?.map((goal, index) => (
                     <li className="flex flex-row space-x-3" key={index}>
-                      <BsCheckCircle className="mt-1 h-[20px] w-[20px]" />
+                      <div>
+                        <BsCheckCircle className="mt-1 h-4 w-4" />
+                      </div>
                       <span>{goal}</span>
                     </li>
                   ))}
@@ -166,7 +168,7 @@ export const CourseDetails: React.FC = () => {
                           })}
                           key={chapter.chapter}
                         >
-                          <p className="text-lg font-thin uppercase text-orange-800 ">
+                          <p className="text-lg font-thin uppercase text-orange-800">
                             {chapter.title}
                           </p>
                         </Link>
