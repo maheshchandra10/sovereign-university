@@ -104,6 +104,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
+      - name: Install Dependencies
+        run: pnpm install
+
       - name: Build and push Docker image
         run: pnpm nx run-many --target container:production --parallel=3
 
