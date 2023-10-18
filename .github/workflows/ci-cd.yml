@@ -118,6 +118,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           source: 'docker/compose.yml,docker/cdn'
           overwrite: true
+          strip_components: 1
           target: ${{ github.ref == 'refs/heads/main' && 'mainnet' || 'testnet' }}
 
       - name: Deploy to server
@@ -128,7 +129,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script_stop: true
           script: |
-            cd ${{ github.ref == 'refs/heads/main' && 'main' || 'dev' }}
+            cd ${{ github.ref == 'refs/heads/main' && 'mainnet' || 'testnet' }}
             docker compose pull
             docker compose stop || true
             docker compose rm -f || true
