@@ -93,5 +93,7 @@ services:
       - ${DOCKER_NETWORK}
 
 networks:
-  ${DOCKER_NETWORK}:
+  university_testnet:
+    external: true
+  university_mainnet:
     external: true
