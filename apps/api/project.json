@@ -90,7 +90,7 @@
           "push": false
         },
         "production": {
-          "push": true
+          "push": false
         }
       }
     }
