@@ -95,14 +95,6 @@
             "type=sha,prefix=sha-"
           ]
         }
-      },
-      "configurations": {
-        "local": {
-          "push": false
-        },
-        "production": {
-          "push": true
-        }
       }
     }
   },
