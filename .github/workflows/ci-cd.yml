@@ -99,14 +99,12 @@ jobs:
         run: pnpm install
 
       - name: Build and push Docker image
-        env:
-          INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} pnpm nx run-many --target container --configuration=production --parallel=3
+        run: pnpm nx run-many --target container --configuration=production --parallel=3
 
-      - name: Push
+      - name: Push Docker images
         run: |
-          docker push ghcr.io/decouvrebitcoin/sovereign-university-api:cicd
-          docker push ghcr.io/decouvrebitcoin/sovereign-university-web:cicd
+          docker push ghcr.io/decouvrebitcoin/sovereign-university-api:${{ github.ref == 'refs/heads/main' && 'main' || 'cicd' }}
+          docker push ghcr.io/decouvrebitcoin/sovereign-university-web:${{ github.ref == 'refs/heads/main' && 'main' || 'cicd' }}
 
       - name: Copy Docker files to server
         uses: appleboy/scp-action@v0.1.4

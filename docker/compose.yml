@@ -62,7 +62,7 @@ services:
     <<: *defaults
     image: nginx:latest
     volumes:
-      - ./config/cdn/nginx.conf:/etc/nginx/nginx.conf
+      - ./cdn/nginx.conf:/etc/nginx/nginx.conf
       - ./data/cdn:/var/www/cdn
     labels:
       - traefik.enable=true
@@ -74,8 +74,6 @@ services:
   web:
     <<: *defaults
     image: ghcr.io/decouvrebitcoin/sovereign-university-web:${IMAGE_TAG}
-    volumes:
-      - ./config/web/nginx.conf:/etc/nginx/conf.d/default.conf
     labels:
       - traefik.enable=true
       - traefik.http.routers.university-web.rule=Host(`${DOMAIN}`)
