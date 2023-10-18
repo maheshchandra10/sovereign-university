@@ -70,9 +70,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Log in to GitHub Container Registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -96,7 +93,7 @@ jobs:
         run: pnpm install
 
       - name: Build and push Docker image
-        run: pnpm nx run-many --target container --configuration=production --parallel=3
+        run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} pnpm nx run-many --target container --configuration=production --parallel=3
 
       - name: Copy Docker files to server
         uses: appleboy/scp-action@v0.1.4
