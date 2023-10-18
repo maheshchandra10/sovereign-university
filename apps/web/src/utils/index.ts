@@ -1,14 +1,11 @@
+import { getDomain, isDevelopmentEnvironment } from './misc';
+
 export { trpc } from './trpc';
 
-export const getDomain = () => {
-  return window.location.hostname;
-};
-
 export const computeAssetCdnUrl = (commitHash: string, path: string) => {
-  const baseUrl =
-    process.env['NODE_ENVIRONMENT'] === 'production'
-      ? `https://cdn.${process.env['DOMAIN']}`
-      : 'http://localhost:8080';
+  const baseUrl = isDevelopmentEnvironment()
+    ? 'http://localhost:8080'
+    : `https://cdn.${getDomain()}`;
 
   return `${baseUrl}/${commitHash}/${path}`;
 };

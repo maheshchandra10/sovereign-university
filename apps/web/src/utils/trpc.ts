@@ -8,16 +8,17 @@ import { SuperJSON } from 'superjson';
 
 import type { AppRouter } from '@sovereign-university/api/server';
 
+import { getDomain, isDevelopmentEnvironment } from './misc';
+
 export type TRPCRouterInput = inferRouterInputs<AppRouter>;
 export type TRPCRouterOutput = inferRouterOutputs<AppRouter>;
 
 export const tRPCClientOptions = {
   links: [
     httpBatchLink({
-      url:
-        process.env['NODE_ENVIRONMENT'] === 'production'
-          ? `https://api.${process.env['DOMAIN']}/trpc`
-          : 'http://localhost:3000/api/trpc',
+      url: isDevelopmentEnvironment()
+        ? 'http://localhost:3000/api/trpc'
+        : `https://api.${getDomain()}/trpc`,
       fetch: (url, options) => {
         return fetch(url, {
           ...options,
