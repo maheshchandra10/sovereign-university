@@ -74,7 +74,7 @@
         "metadata": {
           "images": [
             "sovereign-university-api",
-            "ghcr.io/DecouvreBitcoin/sovereign-university-api"
+            "ghcr.io/decouvrebitcoin/sovereign-university-api"
           ],
           "load": true,
           "tags": [

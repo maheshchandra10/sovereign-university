@@ -78,13 +78,14 @@
     "container": {
       "executor": "@nx-tools/nx-container:build",
       "dependsOn": ["build"],
+      "defaultConfiguration": "local",
       "options": {
         "engine": "docker",
         "file": "apps/web/docker/Dockerfile",
         "metadata": {
           "images": [
             "sovereign-university-web",
-            "ghcr.io/DecouvreBitcoin/sovereign-university-web"
+            "ghcr.io/decouvrebitcoin/sovereign-university-web"
           ],
           "load": true,
           "tags": [
