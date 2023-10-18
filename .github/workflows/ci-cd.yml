@@ -21,7 +21,6 @@ jobs:
       - name: Fetch necessary branches and set BASE and HEAD (Push Event)
         if: github.event_name == 'push'
         run: |
-          git fetch origin ${GITHUB_REF}:refs/remotes/origin/${GITHUB_REF}
           echo "BASE_COMMIT=${{ github.event.before }}" >> $GITHUB_ENV
           echo "HEAD_COMMIT=${{ github.sha }}" >> $GITHUB_ENV
 
