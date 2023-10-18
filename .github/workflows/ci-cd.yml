@@ -3,7 +3,8 @@ name: CI/CD
 on:
   push:
     branches:
-      - cicd
+      - main
+      - dev
   pull_request:
 
 jobs:
@@ -61,7 +62,7 @@ jobs:
 
   deploy:
     needs: build_and_test
-    if: (github.event_name == 'push') && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/cicd')
+    if: (github.event_name == 'push') && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -105,8 +106,8 @@ jobs:
       - name: Push Docker images
         run: |
           # Temporary until I fix the automatic push in the Nx target
-          docker push ghcr.io/decouvrebitcoin/sovereign-university-api:${{ github.ref == 'refs/heads/main' && 'main' || 'cicd' }}
-          docker push ghcr.io/decouvrebitcoin/sovereign-university-web:${{ github.ref == 'refs/heads/main' && 'main' || 'cicd' }}
+          docker push ghcr.io/decouvrebitcoin/sovereign-university-api:${{ github.ref == 'refs/heads/main' && 'main' || 'dev' }}
+          docker push ghcr.io/decouvrebitcoin/sovereign-university-web:${{ github.ref == 'refs/heads/main' && 'main' || 'dev' }}
 
       - name: Copy Docker files to server
         uses: appleboy/scp-action@v0.1.4
