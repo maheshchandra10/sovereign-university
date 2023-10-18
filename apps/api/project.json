@@ -71,6 +71,7 @@
       "options": {
         "engine": "docker",
         "file": "apps/api/docker/Dockerfile",
+        "push": false,
         "metadata": {
           "images": [
             "sovereign-university-api",
@@ -83,14 +84,6 @@
             "type=ref,event=tag",
             "type=sha,prefix=sha-"
           ]
-        }
-      },
-      "configurations": {
-        "local": {
-          "push": false
-        },
-        "production": {
-          "push": false
         }
       }
     }
