@@ -6,9 +6,9 @@ export const getDomain = () => {
 
 export const computeAssetCdnUrl = (commitHash: string, path: string) => {
   const baseUrl =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:8080'
-      : 'https://cdn.sovereignuniversity.org';
+    process.env['NODE_ENVIRONMENT'] === 'production'
+      ? `https://cdn.${process.env['DOMAIN']}`
+      : 'http://localhost:8080';
 
   return `${baseUrl}/${commitHash}/${path}`;
 };

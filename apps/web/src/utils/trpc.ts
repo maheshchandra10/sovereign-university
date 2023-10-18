@@ -14,7 +14,10 @@ export type TRPCRouterOutput = inferRouterOutputs<AppRouter>;
 export const tRPCClientOptions = {
   links: [
     httpBatchLink({
-      url: 'http://localhost:3000/api/trpc',
+      url:
+        process.env['NODE_ENVIRONMENT'] === 'production'
+          ? `https://api.${process.env['DOMAIN']}/trpc`
+          : 'http://localhost:3000/api/trpc',
       fetch: (url, options) => {
         return fetch(url, {
           ...options,
