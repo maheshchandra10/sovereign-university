@@ -103,6 +103,11 @@ jobs:
           INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} pnpm nx run-many --target container --configuration=production --parallel=3
 
+      - name: Push
+        run: |
+          docker push ghcr.io/decouvrebitcoin/sovereign-university-api:cicd
+          docker push ghcr.io/decouvrebitcoin/sovereign-university-web:cicd
+
       - name: Copy Docker files to server
         uses: appleboy/scp-action@v0.1.4
         with:
