@@ -99,6 +99,8 @@ jobs:
         run: pnpm install
 
       - name: Build and push Docker image
+        env:
+          INPUT_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} pnpm nx run-many --target container --configuration=production --parallel=3
 
       - name: Copy Docker files to server
