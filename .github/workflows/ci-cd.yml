@@ -66,6 +66,8 @@ jobs:
     needs: build_and_test
     if: (github.event_name == 'push') && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/cicd')
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
