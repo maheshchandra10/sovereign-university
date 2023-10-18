@@ -63,7 +63,7 @@ jobs:
         run: pnpm install
 
       - name: Check formatting
-        run: pnpx nx format:check
+        run: pnpx nx format:check --base=${{ env.BASE_COMMIT }} --head=${{ env.HEAD_COMMIT }}
 
       - name: Lint Code
         run: pnpx nx affected -t lint --base=${{ env.BASE_COMMIT }} --head=${{ env.HEAD_COMMIT }} --parallel=3
