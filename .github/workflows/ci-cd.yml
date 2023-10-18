@@ -76,26 +76,33 @@ jobs:
 
   deploy:
     needs: build_and_test
-    if: (github.event_name == 'push') && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
+    if: (github.event_name == 'push') && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/cicd')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build and push Docker image
-        run: pnpm nx affected -t container:production --parallel=3
+        run: pnpm nx run-many --target container:production --parallel=3
+
+      - name: Copy Docker files to server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: 'docker/compose.yml,docker/cdn'
+          overwrite: true
+          target: ${{ github.ref == 'refs/heads/main' && 'mainnet' || 'testnet' }}
 
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
-          port: ${{ secrets.SERVER_PORT }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script_stop: true
           script: |

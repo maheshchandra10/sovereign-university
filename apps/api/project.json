@@ -70,7 +70,7 @@
       "dependsOn": ["build"],
       "options": {
         "engine": "docker",
-        "file": "apps/api/Dockerfile",
+        "file": "apps/api/docker/Dockerfile",
         "metadata": {
           "images": [
             "sovereign-university-api",
